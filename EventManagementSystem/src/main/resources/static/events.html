@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Event</title>
+    <link rel="stylesheet" href="event.css">
+</head>
+<body>
+
+    <header>
+        <h1>Create Event</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="attendees.html">Attendees</a></li>
+            <li><a href="eventmain.html">Events</a></li>
+            <li><a href="tasks.html">Tasks</a></li>
+        </ul>
+    </nav>
+
+    <div id="createEventForm">
+        <h2>Event Details</h2>
+        <form action="/api/events" method="POST">
+            <label for="eventName">Event Name:</label>
+            <input type="text" id="eventName" name="eventName" required>
+
+            <label for="eventDate">Event Date:</label>
+            <input type="date" id="eventDate" name="eventDate" required>
+
+            <label for="eventLocation">Location:</label>
+            <input type="text" id="eventLocation" name="eventLocation" required>
+
+            <label for="eventDescription">Event Description:</label>
+            <textarea id="eventDescription" name="eventDescription" rows="4" required></textarea>
+
+            <button type="submit">Create Event</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Event Management System. All rights reserved.</p>
+    </footer>
+      <script src="event.js"></script>
+</body>
+</html>

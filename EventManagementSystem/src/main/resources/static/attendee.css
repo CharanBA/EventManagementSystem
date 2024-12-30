@@ -1,0 +1,170 @@
+/* General Body Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7f6;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Styling */
+header {
+    background-color: #28a745;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 24px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+header button {
+    background-color: #ffffff;
+    color: #28a745;
+    border: 1px solid #28a745;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+header button:hover {
+    background-color: #28a745;
+    color: white;
+}
+
+/* Attendees Table Styling */
+table {
+    width: 100%;
+    margin-top: 30px;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+    padding: 15px;
+    text-align: left;
+    font-size: 1.1rem;
+}
+
+table th {
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+}
+
+table td {
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #ddd;
+}
+
+table td button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+table td button:hover {
+    background-color: #d32f2f;
+}
+
+/* Add Attendee Form */
+#addAttendeeForm {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+#addAttendeeForm h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+#attendeeForm input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+    transition: border 0.3s ease;
+}
+
+#attendeeForm input:focus {
+    border-color: #28a745;
+}
+
+#attendeeForm button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+#attendeeForm button:hover {
+    background-color: #218838;
+}
+
+/* Get Attendees Button */
+#attendeesList {
+    margin-top: 20px;
+}
+
+#attendeesList button {
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#attendeesList button:hover {
+    background-color: #138496;
+}
+
+/* No Attendees Message */
+#attendeesList p {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #888;
+    margin-top: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    table th, table td {
+        font-size: 1rem;
+    }
+
+    #attendeeForm input {
+        font-size: 0.9rem;
+    }
+
+    #attendeeForm button {
+        font-size: 1rem;
+    }
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendees</title>
+    <link rel="stylesheet" href="attendee.css">
+</head>
+<body>
+
+    <header>
+        <h1>Attendees</h1>
+        <button id="addAttendeeBtn">Add Attendee</button>
+        <button id="getAttendeesBtn">Get Attendees</button>
+    </header>
+
+    <div id="attendeesList">
+        <!-- List of attendees will be displayed in a table here -->
+    </div>
+
+    <!-- Add Attendee Form -->
+    <div id="addAttendeeForm" style="display:none;">
+        <h2>Add Attendee</h2>
+        <form id="attendeeForm">
+            <input type="text" id="attendeeName" placeholder="Name" required><br>
+            <input type="email" id="attendeeEmail" placeholder="Email" required><br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <!-- Attendees Table -->
+    <table id="attendeesTable" style="display:none;">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="attendeesTableBody">
+            <!-- Dynamic attendee rows will be inserted here -->
+        </tbody>
+    </table>
+
+    <script src="attendees.js"></script>
+
+</body>
+</html>

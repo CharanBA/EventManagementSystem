@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #28a745;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        /* Button Styling */
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        /* Task Form Styling */
+        .task-form {
+            padding: 20px;
+            background-color: #ffffff;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-form input, .task-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .task-form button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+        }
+
+        .task-form button:hover {
+            background-color: #218838;
+        }
+
+        /* Task List Table Styling */
+        table {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            padding: 15px;
+            text-align: left;
+            font-size: 1.1rem;
+        }
+
+        table th {
+            background-color: #28a745;
+            color: white;
+        }
+
+        table td {
+            background-color: #f9f9f9;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table td button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        table td button:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Task Management</h1>
+    </header>
+
+    <div class="task-form">
+        <h2>Create a New Task</h2>
+        <form id="createTaskForm">
+            <input type="text" id="taskName" placeholder="Task Name" required><br>
+            <input type="text" id="taskDescription" placeholder="Task Description" required><br>
+            <input type="text" id="eventId" placeholder="Event ID" required><br>
+            <select id="taskStatus">
+                <option value="Pending">Pending</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+            </select><br>
+            <button type="submit">Create Task</button>
+        </form>
+    </div>
+
+    <div>
+        <h2>Tasks for Event</h2>
+        <input type="text" id="eventIdForTasks" placeholder="Enter Event ID" style="padding: 10px;">
+        <button onclick="getTasks()">Get Tasks</button>
+        <table id="tasksTable">
+            <thead>
+                <tr>
+                    <th>Task ID</th>
+                    <th>Task Name</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="tasksList"></tbody>
+        </table>
+    </div>
+
+    <script>
+        // Create a task
+        document.getElementById('createTaskForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const task = {
+                name: document.getElementById('taskName').value,
+                description: document.getElementById('taskDescription').value,
+                eventId: document.getElementById('eventId').value,
+                status: document.getElementById('taskStatus').value
+            };
+
+            fetch('/tasks', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(task)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Task Created Successfully');
+                document.getElementById('createTaskForm').reset();  // Reset form
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error creating task');
+            });
+        });
+
+        // Get tasks for a specific event
+        function getTasks() {
+            const eventId = document.getElementById('eventIdForTasks').value;
+
+            fetch(`/tasks/event/${eventId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const tasksList = document.getElementById('tasksList');
+                    tasksList.innerHTML = '';  // Clear previous tasks
+
+                    data.forEach(task => {
+                        const row = document.createElement('tr');
+
+                        const taskIdCell = document.createElement('td');
+                        taskIdCell.textContent = task.id;
+
+                        const taskNameCell = document.createElement('td');
+                        taskNameCell.textContent = task.name;
+
+                        const taskDescriptionCell = document.createElement('td');
+                        taskDescriptionCell.textContent = task.description;
+
+                        const taskStatusCell = document.createElement('td');
+                        taskStatusCell.textContent = task.status;
+
+                        const actionCell = document.createElement('td');
+                        const updateButton = document.createElement('button');
+                        updateButton.textContent = 'Update Status';
+                        updateButton.addEventListener('click', function() {
+                            updateTaskStatus(task.id);
+                        });
+
+                        actionCell.appendChild(updateButton);
+                        row.appendChild(taskIdCell);
+                        row.appendChild(taskNameCell);
+                        row.appendChild(taskDescriptionCell);
+                        row.appendChild(taskStatusCell);
+                        row.appendChild(actionCell);
+
+                        tasksList.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching tasks:', error);
+                    alert('Error fetching tasks');
+                });
+        }
+
+        // Update task status
+        function updateTaskStatus(taskId) {
+            const newStatus = prompt("Enter new status (Pending, In Progress, Completed):");
+
+            if (newStatus) {
+                fetch(`/tasks/${taskId}/status?status=${newStatus}`, {
+                    method: 'PUT'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert('Task status updated');
+                    getTasks();  // Refresh tasks
+                })
+                .catch(error => {
+                    console.error('Error updating task status:', error);
+                    alert('Error updating task status');
+                });
+            }
+        }
+    </script>
+
+</body>
+</html>
