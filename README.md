@@ -24,7 +24,7 @@ This project is built using **Spring Boot** for the backend and **MySQL** as the
 - **Database**: 
   - MySQL
 - **Frontend**: 
-  - HTML (for the simple dashboard, if applicable)
+  - HTML, CSS, JS 
 
 ## Getting Started
 
